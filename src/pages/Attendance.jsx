@@ -2,10 +2,12 @@
 import { useState, useMemo, useEffect } from 'react';
 import { UserCheck, UserX, Clock, X, LogIn, LogOut, CalendarCheck } from 'lucide-react';
 import { attendanceService } from '../services/attendanceService';
+import { employeeService } from '../services/employeeService';
 import { DEPARTMENTS, ATTENDANCE_STATUSES } from '../utils/constants';
 import { formatDate, formatTime } from '../utils/formatters';
 import { useAuth }   from '../context/AuthContext';
 import { useToast }  from '../context/ToastContext';
+import { can }       from '../utils/permissions';
 import SearchBar  from '../components/common/SearchBar';
 import Select     from '../components/common/Select';
 import Badge, { getStatusVariant } from '../components/common/Badge';
@@ -15,7 +17,6 @@ import EmptyState from '../components/common/EmptyState';
 import Button     from '../components/common/Button';
 
 const ITEMS = 10;
-const MY_EMPLOYEE_ID = 'EMP0000';
 
 function SummaryPill({ icon: Icon, label, value, color }) {
   return (
@@ -35,6 +36,9 @@ export default function Attendance() {
   const { user } = useAuth();
   const { addToast } = useToast();
 
+  const myEmployeeId = user?.employeeId || null;
+  const canViewAll = can(user, 'attendance.view');
+
   const [records, setRecords]   = useState(() => attendanceService.getAttendance());
   const todayStr                = new Date().toISOString().split('T')[0];
 
@@ -44,6 +48,12 @@ export default function Attendance() {
   const [statusFilter, setStatus] = useState('');
   const [page, setPage]         = useState(1);
 
+  // Employees only see their own records; managers/HR/admins see everything.
+  const visible = useMemo(
+    () => (canViewAll ? records : records.filter((r) => r.employeeId === myEmployeeId)),
+    [records, canViewAll, myEmployeeId]
+  );
+
   // Live clock for the clock-in/out card
   const [now, setNow] = useState(() => new Date());
   useEffect(() => {
@@ -51,19 +61,19 @@ export default function Attendance() {
     return () => clearInterval(timer);
   }, []);
 
-  const myRecord    = records.find((r) => r.employeeId === MY_EMPLOYEE_ID && r.date === todayStr) || null;
+  const myRecord    = records.find((r) => r.employeeId === myEmployeeId && r.date === todayStr) || null;
   const isClockedIn = !!myRecord?.checkIn && !myRecord.checkOut;
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
-    return records.filter((r) => {
+    return visible.filter((r) => {
       const matchDate   = !dateFilter  || r.date === dateFilter;
       const matchSearch = !q || r.employeeName.toLowerCase().includes(q) || r.employeeId.toLowerCase().includes(q);
       const matchDept   = !deptFilter   || r.department === deptFilter;
       const matchStatus = !statusFilter || r.status === statusFilter;
       return matchDate && matchSearch && matchDept && matchStatus;
     });
-  }, [records, dateFilter, search, deptFilter, statusFilter]);
+  }, [visible, dateFilter, search, deptFilter, statusFilter]);
 
   useEffect(() => { setPage(1); }, [dateFilter, search, deptFilter, statusFilter]);
 
@@ -78,15 +88,24 @@ export default function Attendance() {
   const hasFilters = search || deptFilter || statusFilter;
 
   const handleClock = () => {
+    if (!myEmployeeId) {
+      addToast({ message: 'Your account is not linked to an employee profile.', type: 'warning' });
+      return;
+    }
+    const emp = employeeService.getById(myEmployeeId);
     if (!isClockedIn) {
-      const rec = attendanceService.clockIn(MY_EMPLOYEE_ID, user?.name || 'HR Administrator', 'Human Resources');
+      const rec = attendanceService.clockIn(
+        myEmployeeId,
+        emp ? `${emp.firstName} ${emp.lastName}` : user?.name || 'Employee',
+        emp?.department || 'Human Resources'
+      );
       setRecords(attendanceService.getAttendance());
       addToast({
         message: `Checked in at ${formatTime(rec.checkIn)}.`,
         type: rec.status === 'Late' ? 'warning' : 'success',
       });
     } else {
-      const rec = attendanceService.clockOut(MY_EMPLOYEE_ID);
+      const rec = attendanceService.clockOut(myEmployeeId);
       setRecords(attendanceService.getAttendance());
       addToast({ message: `Checked out at ${formatTime(rec.checkOut)}.`, type: 'success' });
     }

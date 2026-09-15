@@ -2,7 +2,8 @@
 // Mock leave management service backed by localStorage.
 
 import { storage } from '../utils/localStorage';
-import { INITIAL_LEAVES } from '../data/leaves';
+import { INITIAL_LEAVES } from '../data';
+import { assertAuthenticated } from './apiClient';
 
 const KEY = 'leaves';
 
@@ -28,6 +29,7 @@ export const leaveService = {
   },
 
   updateStatus(id, status) {
+    assertAuthenticated();
     const leaves = getAll();
     const idx = leaves.findIndex((l) => l.id === id);
     if (idx === -1) return null;
@@ -41,6 +43,7 @@ export const leaveService = {
    * @param {object} data - { employeeId, employeeName, department, leaveType, fromDate, toDate, days, reason }
    */
   addLeave(data) {
+    assertAuthenticated();
     const leaves = getAll();
     const nextNum = leaves.reduce((max, l) => {
       const n = parseInt(l.id.replace(/\D/g, ''), 10);

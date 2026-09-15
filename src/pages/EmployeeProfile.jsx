@@ -6,6 +6,8 @@ import { employeeService }  from '../services/employeeService';
 import { attendanceService } from '../services/attendanceService';
 import { leaveService }      from '../services/leaveService';
 import { formatDate }        from '../utils/formatters';
+import { useAuth }           from '../context/AuthContext';
+import { can }               from '../utils/permissions';
 import Avatar                from '../components/common/Avatar';
 import Badge, { getStatusVariant } from '../components/common/Badge';
 import Button                from '../components/common/Button';
@@ -40,6 +42,8 @@ function SummaryCard({ label, value, sub, color }) {
 export default function EmployeeProfile() {
   const { id }   = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const canEdit  = can(user, 'employees.edit');
 
   const [employee, setEmployee]     = useState(null);
   const [attendance, setAttendance] = useState([]);
@@ -101,13 +105,15 @@ export default function EmployeeProfile() {
                   <span className="text-xs text-slate-400">{employee.id}</span>
                 </div>
               </div>
-              <Button
-                size="sm"
-                onClick={() => navigate(`/employees/${id}/edit`)}
-                className="flex-shrink-0"
-              >
-                <Pencil size={14} /> Edit Profile
-              </Button>
+              {canEdit && (
+                <Button
+                  size="sm"
+                  onClick={() => navigate(`/employees/${id}/edit`)}
+                  className="flex-shrink-0"
+                >
+                  <Pencil size={14} /> Edit Profile
+                </Button>
+              )}
             </div>
           </div>
         </div>

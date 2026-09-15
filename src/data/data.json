@@ -1,0 +1,1937 @@
+{
+  "roles": {
+    "Admin": [
+      "dashboard",
+      "employees.view",
+      "employees.create",
+      "employees.edit",
+      "employees.delete",
+      "attendance.view",
+      "attendance.clock",
+      "leaves.view",
+      "leaves.approve",
+      "leaves.apply",
+      "projects.view"
+    ],
+    "HR Manager": [
+      "dashboard",
+      "employees.view",
+      "employees.create",
+      "employees.edit",
+      "employees.delete",
+      "attendance.view",
+      "attendance.clock",
+      "leaves.view",
+      "leaves.approve",
+      "leaves.apply",
+      "projects.view"
+    ],
+    "Manager": [
+      "dashboard",
+      "employees.view",
+      "attendance.view",
+      "attendance.clock",
+      "leaves.view",
+      "leaves.approve",
+      "leaves.apply",
+      "projects.view"
+    ],
+    "Employee": [
+      "dashboard",
+      "attendance.self",
+      "attendance.clock",
+      "leaves.self",
+      "leaves.apply",
+      "projects.own"
+    ]
+  },
+  "users": [
+    {
+      "id": "USR001",
+      "email": "admin@company.com",
+      "password": "admin123",
+      "name": "Sarah Mitchell",
+      "role": "Admin",
+      "employeeId": null,
+      "avatar": null
+    },
+    {
+      "id": "USR002",
+      "email": "hr@company.com",
+      "password": "hr123",
+      "name": "Priya Nair",
+      "role": "HR Manager",
+      "employeeId": "EMP1002",
+      "avatar": null
+    },
+    {
+      "id": "USR003",
+      "email": "manager@company.com",
+      "password": "manager123",
+      "name": "Rohan Mehta",
+      "role": "Manager",
+      "employeeId": "EMP1007",
+      "avatar": null
+    },
+    {
+      "id": "USR004",
+      "email": "employee@company.com",
+      "password": "employee123",
+      "name": "Arjun Sharma",
+      "role": "Employee",
+      "employeeId": "EMP1001",
+      "avatar": null
+    },
+    {
+      "id": "USR005",
+      "email": "suresh.babu@company.com",
+      "password": "manager123",
+      "name": "Suresh Babu",
+      "role": "Manager",
+      "employeeId": "EMP1009",
+      "avatar": null
+    }
+  ],
+  "employees": [
+    {
+      "id": "EMP1001",
+      "firstName": "Arjun",
+      "lastName": "Sharma",
+      "email": "arjun.sharma@company.com",
+      "phone": "+91 98765 43210",
+      "gender": "Male",
+      "dateOfBirth": "1992-04-15",
+      "department": "Engineering",
+      "designation": "Senior Software Engineer",
+      "joiningDate": "2021-03-01",
+      "employmentStatus": "Active",
+      "address": "42, MG Road",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "avatar": null
+    },
+    {
+      "id": "EMP1002",
+      "firstName": "Priya",
+      "lastName": "Nair",
+      "email": "priya.nair@company.com",
+      "phone": "+91 91234 56789",
+      "gender": "Female",
+      "dateOfBirth": "1994-08-22",
+      "department": "Human Resources",
+      "designation": "HR Manager",
+      "joiningDate": "2020-06-15",
+      "employmentStatus": "Active",
+      "address": "78, Andheri West",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "avatar": null
+    },
+    {
+      "id": "EMP1003",
+      "firstName": "Rahul",
+      "lastName": "Verma",
+      "email": "rahul.verma@company.com",
+      "phone": "+91 99887 76655",
+      "gender": "Male",
+      "dateOfBirth": "1990-11-30",
+      "department": "Finance",
+      "designation": "Finance Manager",
+      "joiningDate": "2019-01-10",
+      "employmentStatus": "Active",
+      "address": "15, Connaught Place",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "avatar": null
+    },
+    {
+      "id": "EMP1004",
+      "firstName": "Sneha",
+      "lastName": "Patel",
+      "email": "sneha.patel@company.com",
+      "phone": "+91 93456 78901",
+      "gender": "Female",
+      "dateOfBirth": "1996-02-18",
+      "department": "Marketing",
+      "designation": "Marketing Executive",
+      "joiningDate": "2022-08-01",
+      "employmentStatus": "Active",
+      "address": "33, CG Road",
+      "city": "Ahmedabad",
+      "state": "Gujarat",
+      "avatar": null
+    },
+    {
+      "id": "EMP1005",
+      "firstName": "Vikram",
+      "lastName": "Singh",
+      "email": "vikram.singh@company.com",
+      "phone": "+91 87654 32109",
+      "gender": "Male",
+      "dateOfBirth": "1988-07-05",
+      "department": "Operations",
+      "designation": "Operations Manager",
+      "joiningDate": "2018-05-20",
+      "employmentStatus": "Active",
+      "address": "9, Sector 17",
+      "city": "Chandigarh",
+      "state": "Punjab",
+      "avatar": null
+    },
+    {
+      "id": "EMP1006",
+      "firstName": "Divya",
+      "lastName": "Krishnan",
+      "email": "divya.krishnan@company.com",
+      "phone": "+91 96321 47856",
+      "gender": "Female",
+      "dateOfBirth": "1995-05-12",
+      "department": "Engineering",
+      "designation": "Software Engineer",
+      "joiningDate": "2023-01-16",
+      "employmentStatus": "On Probation",
+      "address": "21, Anna Salai",
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "avatar": null
+    },
+    {
+      "id": "EMP1007",
+      "firstName": "Rohan",
+      "lastName": "Mehta",
+      "email": "rohan.mehta@company.com",
+      "phone": "+91 77889 90012",
+      "gender": "Male",
+      "dateOfBirth": "1993-09-27",
+      "department": "Sales",
+      "designation": "Sales Manager",
+      "joiningDate": "2020-11-01",
+      "employmentStatus": "Active",
+      "address": "67, Park Street",
+      "city": "Kolkata",
+      "state": "West Bengal",
+      "avatar": null
+    },
+    {
+      "id": "EMP1008",
+      "firstName": "Ananya",
+      "lastName": "Gupta",
+      "email": "ananya.gupta@company.com",
+      "phone": "+91 98001 23456",
+      "gender": "Female",
+      "dateOfBirth": "1991-03-04",
+      "department": "Product",
+      "designation": "Product Manager",
+      "joiningDate": "2021-07-01",
+      "employmentStatus": "Active",
+      "address": "5, Indiranagar",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "avatar": null
+    },
+    {
+      "id": "EMP1009",
+      "firstName": "Suresh",
+      "lastName": "Babu",
+      "email": "suresh.babu@company.com",
+      "phone": "+91 94567 89012",
+      "gender": "Male",
+      "dateOfBirth": "1985-12-10",
+      "department": "Engineering",
+      "designation": "Engineering Manager",
+      "joiningDate": "2017-04-03",
+      "employmentStatus": "Active",
+      "address": "12, Hitech City",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "avatar": null
+    },
+    {
+      "id": "EMP1010",
+      "firstName": "Neha",
+      "lastName": "Joshi",
+      "email": "neha.joshi@company.com",
+      "phone": "+91 82345 67890",
+      "gender": "Female",
+      "dateOfBirth": "1997-06-25",
+      "department": "Design",
+      "designation": "UI Designer",
+      "joiningDate": "2023-03-06",
+      "employmentStatus": "On Probation",
+      "address": "3, Koregaon Park",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "avatar": null
+    },
+    {
+      "id": "EMP1011",
+      "firstName": "Aditya",
+      "lastName": "Rao",
+      "email": "aditya.rao@company.com",
+      "phone": "+91 91111 22333",
+      "gender": "Male",
+      "dateOfBirth": "1989-01-14",
+      "department": "Finance",
+      "designation": "Financial Analyst",
+      "joiningDate": "2019-09-09",
+      "employmentStatus": "Active",
+      "address": "88, MG Road",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "avatar": null
+    },
+    {
+      "id": "EMP1012",
+      "firstName": "Kavya",
+      "lastName": "Reddy",
+      "email": "kavya.reddy@company.com",
+      "phone": "+91 99000 11222",
+      "gender": "Female",
+      "dateOfBirth": "1998-10-08",
+      "department": "Customer Support",
+      "designation": "Support Executive",
+      "joiningDate": "2022-12-01",
+      "employmentStatus": "Active",
+      "address": "14, Jubilee Hills",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "avatar": null
+    },
+    {
+      "id": "EMP1013",
+      "firstName": "Manish",
+      "lastName": "Agarwal",
+      "email": "manish.agarwal@company.com",
+      "phone": "+91 78900 12345",
+      "gender": "Male",
+      "dateOfBirth": "1987-08-19",
+      "department": "Legal",
+      "designation": "Legal Counsel",
+      "joiningDate": "2016-02-14",
+      "employmentStatus": "Active",
+      "address": "22, Sector 5",
+      "city": "Noida",
+      "state": "Uttar Pradesh",
+      "avatar": null
+    },
+    {
+      "id": "EMP1014",
+      "firstName": "Ishita",
+      "lastName": "Bhatt",
+      "email": "ishita.bhatt@company.com",
+      "phone": "+91 85678 90123",
+      "gender": "Female",
+      "dateOfBirth": "1993-04-30",
+      "department": "Marketing",
+      "designation": "Brand Manager",
+      "joiningDate": "2021-05-17",
+      "employmentStatus": "Active",
+      "address": "56, Navrangpura",
+      "city": "Ahmedabad",
+      "state": "Gujarat",
+      "avatar": null
+    },
+    {
+      "id": "EMP1015",
+      "firstName": "Karthik",
+      "lastName": "Iyer",
+      "email": "karthik.iyer@company.com",
+      "phone": "+91 96789 01234",
+      "gender": "Male",
+      "dateOfBirth": "1994-07-11",
+      "department": "Engineering",
+      "designation": "DevOps Engineer",
+      "joiningDate": "2022-01-10",
+      "employmentStatus": "Active",
+      "address": "7, T Nagar",
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "avatar": null
+    },
+    {
+      "id": "EMP1016",
+      "firstName": "Ritu",
+      "lastName": "Sharma",
+      "email": "ritu.sharma@company.com",
+      "phone": "+91 97654 32100",
+      "gender": "Female",
+      "dateOfBirth": "1996-09-03",
+      "department": "Human Resources",
+      "designation": "HR Executive",
+      "joiningDate": "2022-04-04",
+      "employmentStatus": "Active",
+      "address": "29, Lajpat Nagar",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "avatar": null
+    },
+    {
+      "id": "EMP1017",
+      "firstName": "Sanjay",
+      "lastName": "Kumar",
+      "email": "sanjay.kumar@company.com",
+      "phone": "+91 88765 43210",
+      "gender": "Male",
+      "dateOfBirth": "1983-05-22",
+      "department": "Operations",
+      "designation": "COO",
+      "joiningDate": "2015-07-01",
+      "employmentStatus": "Active",
+      "address": "1, Race Course Road",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "avatar": null
+    },
+    {
+      "id": "EMP1018",
+      "firstName": "Pooja",
+      "lastName": "Desai",
+      "email": "pooja.desai@company.com",
+      "phone": "+91 92345 67801",
+      "gender": "Female",
+      "dateOfBirth": "1999-01-28",
+      "department": "Design",
+      "designation": "UX Designer",
+      "joiningDate": "2023-06-01",
+      "employmentStatus": "On Probation",
+      "address": "77, Bandra West",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "avatar": null
+    },
+    {
+      "id": "EMP1019",
+      "firstName": "Nikhil",
+      "lastName": "Chandra",
+      "email": "nikhil.chandra@company.com",
+      "phone": "+91 73456 78901",
+      "gender": "Male",
+      "dateOfBirth": "1991-11-15",
+      "department": "Sales",
+      "designation": "Business Development Manager",
+      "joiningDate": "2020-02-24",
+      "employmentStatus": "Inactive",
+      "address": "45, Salt Lake City",
+      "city": "Kolkata",
+      "state": "West Bengal",
+      "avatar": null
+    },
+    {
+      "id": "EMP1020",
+      "firstName": "Shruti",
+      "lastName": "Menon",
+      "email": "shruti.menon@company.com",
+      "phone": "+91 86543 21098",
+      "gender": "Female",
+      "dateOfBirth": "1995-03-17",
+      "department": "Engineering",
+      "designation": "QA Engineer",
+      "joiningDate": "2021-09-13",
+      "employmentStatus": "Active",
+      "address": "6, Marine Drive",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "avatar": null
+    }
+  ],
+  "attendance": [
+    {
+      "id": "ATT0001",
+      "employeeId": "EMP1001",
+      "employeeName": "Arjun Sharma",
+      "department": "Engineering",
+      "date": "2026-09-01",
+      "checkIn": "08:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0002",
+      "employeeId": "EMP1002",
+      "employeeName": "Priya Nair",
+      "department": "Human Resources",
+      "date": "2026-09-01",
+      "checkIn": "10:15",
+      "checkOut": "17:00",
+      "status": "Late"
+    },
+    {
+      "id": "ATT0003",
+      "employeeId": "EMP1003",
+      "employeeName": "Rahul Verma",
+      "department": "Finance",
+      "date": "2026-09-01",
+      "checkIn": "09:30",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0004",
+      "employeeId": "EMP1004",
+      "employeeName": "Sneha Patel",
+      "department": "Marketing",
+      "date": "2026-09-01",
+      "checkIn": "09:30",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0005",
+      "employeeId": "EMP1005",
+      "employeeName": "Vikram Singh",
+      "department": "Operations",
+      "date": "2026-09-01",
+      "checkIn": "10:15",
+      "checkOut": "17:30",
+      "status": "Late"
+    },
+    {
+      "id": "ATT0006",
+      "employeeId": "EMP1006",
+      "employeeName": "Divya Krishnan",
+      "department": "Engineering",
+      "date": "2026-09-01",
+      "checkIn": "10:15",
+      "checkOut": "17:30",
+      "status": "Late"
+    },
+    {
+      "id": "ATT0007",
+      "employeeId": "EMP1007",
+      "employeeName": "Rohan Mehta",
+      "department": "Sales",
+      "date": "2026-09-01",
+      "checkIn": "08:30",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0008",
+      "employeeId": "EMP1008",
+      "employeeName": "Ananya Gupta",
+      "department": "Product",
+      "date": "2026-09-01",
+      "checkIn": "08:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0009",
+      "employeeId": "EMP1009",
+      "employeeName": "Suresh Babu",
+      "department": "Engineering",
+      "date": "2026-09-01",
+      "checkIn": "09:00",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0010",
+      "employeeId": "EMP1010",
+      "employeeName": "Neha Joshi",
+      "department": "Design",
+      "date": "2026-09-01",
+      "checkIn": "10:15",
+      "checkOut": "17:30",
+      "status": "Late"
+    },
+    {
+      "id": "ATT0011",
+      "employeeId": "EMP1001",
+      "employeeName": "Arjun Sharma",
+      "department": "Engineering",
+      "date": "2026-09-02",
+      "checkIn": null,
+      "checkOut": null,
+      "status": "Absent"
+    },
+    {
+      "id": "ATT0012",
+      "employeeId": "EMP1002",
+      "employeeName": "Priya Nair",
+      "department": "Human Resources",
+      "date": "2026-09-02",
+      "checkIn": null,
+      "checkOut": null,
+      "status": "Absent"
+    },
+    {
+      "id": "ATT0013",
+      "employeeId": "EMP1003",
+      "employeeName": "Rahul Verma",
+      "department": "Finance",
+      "date": "2026-09-02",
+      "checkIn": "08:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0014",
+      "employeeId": "EMP1004",
+      "employeeName": "Sneha Patel",
+      "department": "Marketing",
+      "date": "2026-09-02",
+      "checkIn": "09:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0015",
+      "employeeId": "EMP1005",
+      "employeeName": "Vikram Singh",
+      "department": "Operations",
+      "date": "2026-09-02",
+      "checkIn": "08:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0016",
+      "employeeId": "EMP1006",
+      "employeeName": "Divya Krishnan",
+      "department": "Engineering",
+      "date": "2026-09-02",
+      "checkIn": "08:30",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0017",
+      "employeeId": "EMP1007",
+      "employeeName": "Rohan Mehta",
+      "department": "Sales",
+      "date": "2026-09-02",
+      "checkIn": "09:30",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0018",
+      "employeeId": "EMP1008",
+      "employeeName": "Ananya Gupta",
+      "department": "Product",
+      "date": "2026-09-02",
+      "checkIn": "08:00",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0019",
+      "employeeId": "EMP1009",
+      "employeeName": "Suresh Babu",
+      "department": "Engineering",
+      "date": "2026-09-02",
+      "checkIn": null,
+      "checkOut": null,
+      "status": "Absent"
+    },
+    {
+      "id": "ATT0020",
+      "employeeId": "EMP1010",
+      "employeeName": "Neha Joshi",
+      "department": "Design",
+      "date": "2026-09-02",
+      "checkIn": "10:15",
+      "checkOut": "17:00",
+      "status": "Late"
+    },
+    {
+      "id": "ATT0021",
+      "employeeId": "EMP1001",
+      "employeeName": "Arjun Sharma",
+      "department": "Engineering",
+      "date": "2026-09-03",
+      "checkIn": "10:15",
+      "checkOut": "17:30",
+      "status": "Late"
+    },
+    {
+      "id": "ATT0022",
+      "employeeId": "EMP1002",
+      "employeeName": "Priya Nair",
+      "department": "Human Resources",
+      "date": "2026-09-03",
+      "checkIn": null,
+      "checkOut": null,
+      "status": "Absent"
+    },
+    {
+      "id": "ATT0023",
+      "employeeId": "EMP1003",
+      "employeeName": "Rahul Verma",
+      "department": "Finance",
+      "date": "2026-09-03",
+      "checkIn": null,
+      "checkOut": null,
+      "status": "Absent"
+    },
+    {
+      "id": "ATT0024",
+      "employeeId": "EMP1004",
+      "employeeName": "Sneha Patel",
+      "department": "Marketing",
+      "date": "2026-09-03",
+      "checkIn": "10:15",
+      "checkOut": "17:30",
+      "status": "Late"
+    },
+    {
+      "id": "ATT0025",
+      "employeeId": "EMP1005",
+      "employeeName": "Vikram Singh",
+      "department": "Operations",
+      "date": "2026-09-03",
+      "checkIn": "09:30",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0026",
+      "employeeId": "EMP1006",
+      "employeeName": "Divya Krishnan",
+      "department": "Engineering",
+      "date": "2026-09-03",
+      "checkIn": null,
+      "checkOut": null,
+      "status": "Absent"
+    },
+    {
+      "id": "ATT0027",
+      "employeeId": "EMP1007",
+      "employeeName": "Rohan Mehta",
+      "department": "Sales",
+      "date": "2026-09-03",
+      "checkIn": null,
+      "checkOut": null,
+      "status": "Absent"
+    },
+    {
+      "id": "ATT0028",
+      "employeeId": "EMP1008",
+      "employeeName": "Ananya Gupta",
+      "department": "Product",
+      "date": "2026-09-03",
+      "checkIn": "08:00",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0029",
+      "employeeId": "EMP1009",
+      "employeeName": "Suresh Babu",
+      "department": "Engineering",
+      "date": "2026-09-03",
+      "checkIn": "10:15",
+      "checkOut": "17:00",
+      "status": "Late"
+    },
+    {
+      "id": "ATT0030",
+      "employeeId": "EMP1010",
+      "employeeName": "Neha Joshi",
+      "department": "Design",
+      "date": "2026-09-03",
+      "checkIn": "09:30",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0031",
+      "employeeId": "EMP1001",
+      "employeeName": "Arjun Sharma",
+      "department": "Engineering",
+      "date": "2026-09-04",
+      "checkIn": "08:30",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0032",
+      "employeeId": "EMP1002",
+      "employeeName": "Priya Nair",
+      "department": "Human Resources",
+      "date": "2026-09-04",
+      "checkIn": "10:15",
+      "checkOut": "17:00",
+      "status": "Late"
+    },
+    {
+      "id": "ATT0033",
+      "employeeId": "EMP1003",
+      "employeeName": "Rahul Verma",
+      "department": "Finance",
+      "date": "2026-09-04",
+      "checkIn": "08:30",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0034",
+      "employeeId": "EMP1004",
+      "employeeName": "Sneha Patel",
+      "department": "Marketing",
+      "date": "2026-09-04",
+      "checkIn": "09:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0035",
+      "employeeId": "EMP1005",
+      "employeeName": "Vikram Singh",
+      "department": "Operations",
+      "date": "2026-09-04",
+      "checkIn": "08:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0036",
+      "employeeId": "EMP1006",
+      "employeeName": "Divya Krishnan",
+      "department": "Engineering",
+      "date": "2026-09-04",
+      "checkIn": "08:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0037",
+      "employeeId": "EMP1007",
+      "employeeName": "Rohan Mehta",
+      "department": "Sales",
+      "date": "2026-09-04",
+      "checkIn": "09:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0038",
+      "employeeId": "EMP1008",
+      "employeeName": "Ananya Gupta",
+      "department": "Product",
+      "date": "2026-09-04",
+      "checkIn": "08:30",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0039",
+      "employeeId": "EMP1009",
+      "employeeName": "Suresh Babu",
+      "department": "Engineering",
+      "date": "2026-09-04",
+      "checkIn": "08:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0040",
+      "employeeId": "EMP1010",
+      "employeeName": "Neha Joshi",
+      "department": "Design",
+      "date": "2026-09-04",
+      "checkIn": "09:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0041",
+      "employeeId": "EMP1001",
+      "employeeName": "Arjun Sharma",
+      "department": "Engineering",
+      "date": "2026-09-07",
+      "checkIn": "08:00",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0042",
+      "employeeId": "EMP1002",
+      "employeeName": "Priya Nair",
+      "department": "Human Resources",
+      "date": "2026-09-07",
+      "checkIn": "08:30",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0043",
+      "employeeId": "EMP1003",
+      "employeeName": "Rahul Verma",
+      "department": "Finance",
+      "date": "2026-09-07",
+      "checkIn": "09:30",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0044",
+      "employeeId": "EMP1004",
+      "employeeName": "Sneha Patel",
+      "department": "Marketing",
+      "date": "2026-09-07",
+      "checkIn": null,
+      "checkOut": null,
+      "status": "Absent"
+    },
+    {
+      "id": "ATT0045",
+      "employeeId": "EMP1005",
+      "employeeName": "Vikram Singh",
+      "department": "Operations",
+      "date": "2026-09-07",
+      "checkIn": "08:00",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0046",
+      "employeeId": "EMP1006",
+      "employeeName": "Divya Krishnan",
+      "department": "Engineering",
+      "date": "2026-09-07",
+      "checkIn": "10:15",
+      "checkOut": "17:30",
+      "status": "Late"
+    },
+    {
+      "id": "ATT0047",
+      "employeeId": "EMP1007",
+      "employeeName": "Rohan Mehta",
+      "department": "Sales",
+      "date": "2026-09-07",
+      "checkIn": "08:30",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0048",
+      "employeeId": "EMP1008",
+      "employeeName": "Ananya Gupta",
+      "department": "Product",
+      "date": "2026-09-07",
+      "checkIn": "10:15",
+      "checkOut": "17:30",
+      "status": "Late"
+    },
+    {
+      "id": "ATT0049",
+      "employeeId": "EMP1009",
+      "employeeName": "Suresh Babu",
+      "department": "Engineering",
+      "date": "2026-09-07",
+      "checkIn": "09:30",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0050",
+      "employeeId": "EMP1010",
+      "employeeName": "Neha Joshi",
+      "department": "Design",
+      "date": "2026-09-07",
+      "checkIn": null,
+      "checkOut": null,
+      "status": "Absent"
+    },
+    {
+      "id": "ATT0051",
+      "employeeId": "EMP1001",
+      "employeeName": "Arjun Sharma",
+      "department": "Engineering",
+      "date": "2026-09-08",
+      "checkIn": "08:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0052",
+      "employeeId": "EMP1002",
+      "employeeName": "Priya Nair",
+      "department": "Human Resources",
+      "date": "2026-09-08",
+      "checkIn": "08:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0053",
+      "employeeId": "EMP1003",
+      "employeeName": "Rahul Verma",
+      "department": "Finance",
+      "date": "2026-09-08",
+      "checkIn": null,
+      "checkOut": null,
+      "status": "Absent"
+    },
+    {
+      "id": "ATT0054",
+      "employeeId": "EMP1004",
+      "employeeName": "Sneha Patel",
+      "department": "Marketing",
+      "date": "2026-09-08",
+      "checkIn": "10:15",
+      "checkOut": "17:00",
+      "status": "Late"
+    },
+    {
+      "id": "ATT0055",
+      "employeeId": "EMP1005",
+      "employeeName": "Vikram Singh",
+      "department": "Operations",
+      "date": "2026-09-08",
+      "checkIn": "08:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0056",
+      "employeeId": "EMP1006",
+      "employeeName": "Divya Krishnan",
+      "department": "Engineering",
+      "date": "2026-09-08",
+      "checkIn": null,
+      "checkOut": null,
+      "status": "Absent"
+    },
+    {
+      "id": "ATT0057",
+      "employeeId": "EMP1007",
+      "employeeName": "Rohan Mehta",
+      "department": "Sales",
+      "date": "2026-09-08",
+      "checkIn": "09:00",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0058",
+      "employeeId": "EMP1008",
+      "employeeName": "Ananya Gupta",
+      "department": "Product",
+      "date": "2026-09-08",
+      "checkIn": "09:00",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0059",
+      "employeeId": "EMP1009",
+      "employeeName": "Suresh Babu",
+      "department": "Engineering",
+      "date": "2026-09-08",
+      "checkIn": "08:00",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0060",
+      "employeeId": "EMP1010",
+      "employeeName": "Neha Joshi",
+      "department": "Design",
+      "date": "2026-09-08",
+      "checkIn": "09:00",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0061",
+      "employeeId": "EMP1001",
+      "employeeName": "Arjun Sharma",
+      "department": "Engineering",
+      "date": "2026-09-09",
+      "checkIn": "09:30",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0062",
+      "employeeId": "EMP1002",
+      "employeeName": "Priya Nair",
+      "department": "Human Resources",
+      "date": "2026-09-09",
+      "checkIn": "08:30",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0063",
+      "employeeId": "EMP1003",
+      "employeeName": "Rahul Verma",
+      "department": "Finance",
+      "date": "2026-09-09",
+      "checkIn": "09:30",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0064",
+      "employeeId": "EMP1004",
+      "employeeName": "Sneha Patel",
+      "department": "Marketing",
+      "date": "2026-09-09",
+      "checkIn": "08:30",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0065",
+      "employeeId": "EMP1005",
+      "employeeName": "Vikram Singh",
+      "department": "Operations",
+      "date": "2026-09-09",
+      "checkIn": "08:30",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0066",
+      "employeeId": "EMP1006",
+      "employeeName": "Divya Krishnan",
+      "department": "Engineering",
+      "date": "2026-09-09",
+      "checkIn": "10:15",
+      "checkOut": "17:30",
+      "status": "Late"
+    },
+    {
+      "id": "ATT0067",
+      "employeeId": "EMP1007",
+      "employeeName": "Rohan Mehta",
+      "department": "Sales",
+      "date": "2026-09-09",
+      "checkIn": "08:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0068",
+      "employeeId": "EMP1008",
+      "employeeName": "Ananya Gupta",
+      "department": "Product",
+      "date": "2026-09-09",
+      "checkIn": "09:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0069",
+      "employeeId": "EMP1009",
+      "employeeName": "Suresh Babu",
+      "department": "Engineering",
+      "date": "2026-09-09",
+      "checkIn": null,
+      "checkOut": null,
+      "status": "Absent"
+    },
+    {
+      "id": "ATT0070",
+      "employeeId": "EMP1010",
+      "employeeName": "Neha Joshi",
+      "department": "Design",
+      "date": "2026-09-09",
+      "checkIn": "08:30",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0071",
+      "employeeId": "EMP1001",
+      "employeeName": "Arjun Sharma",
+      "department": "Engineering",
+      "date": "2026-09-10",
+      "checkIn": null,
+      "checkOut": null,
+      "status": "Absent"
+    },
+    {
+      "id": "ATT0072",
+      "employeeId": "EMP1002",
+      "employeeName": "Priya Nair",
+      "department": "Human Resources",
+      "date": "2026-09-10",
+      "checkIn": "09:30",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0073",
+      "employeeId": "EMP1003",
+      "employeeName": "Rahul Verma",
+      "department": "Finance",
+      "date": "2026-09-10",
+      "checkIn": "09:00",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0074",
+      "employeeId": "EMP1004",
+      "employeeName": "Sneha Patel",
+      "department": "Marketing",
+      "date": "2026-09-10",
+      "checkIn": "10:15",
+      "checkOut": "17:00",
+      "status": "Late"
+    },
+    {
+      "id": "ATT0075",
+      "employeeId": "EMP1005",
+      "employeeName": "Vikram Singh",
+      "department": "Operations",
+      "date": "2026-09-10",
+      "checkIn": "08:30",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0076",
+      "employeeId": "EMP1006",
+      "employeeName": "Divya Krishnan",
+      "department": "Engineering",
+      "date": "2026-09-10",
+      "checkIn": "08:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0077",
+      "employeeId": "EMP1007",
+      "employeeName": "Rohan Mehta",
+      "department": "Sales",
+      "date": "2026-09-10",
+      "checkIn": "08:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0078",
+      "employeeId": "EMP1008",
+      "employeeName": "Ananya Gupta",
+      "department": "Product",
+      "date": "2026-09-10",
+      "checkIn": "09:30",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0079",
+      "employeeId": "EMP1009",
+      "employeeName": "Suresh Babu",
+      "department": "Engineering",
+      "date": "2026-09-10",
+      "checkIn": "09:30",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0080",
+      "employeeId": "EMP1010",
+      "employeeName": "Neha Joshi",
+      "department": "Design",
+      "date": "2026-09-10",
+      "checkIn": null,
+      "checkOut": null,
+      "status": "Absent"
+    },
+    {
+      "id": "ATT0081",
+      "employeeId": "EMP1001",
+      "employeeName": "Arjun Sharma",
+      "department": "Engineering",
+      "date": "2026-09-11",
+      "checkIn": "08:30",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0082",
+      "employeeId": "EMP1002",
+      "employeeName": "Priya Nair",
+      "department": "Human Resources",
+      "date": "2026-09-11",
+      "checkIn": "10:15",
+      "checkOut": "17:00",
+      "status": "Late"
+    },
+    {
+      "id": "ATT0083",
+      "employeeId": "EMP1003",
+      "employeeName": "Rahul Verma",
+      "department": "Finance",
+      "date": "2026-09-11",
+      "checkIn": "09:00",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0084",
+      "employeeId": "EMP1004",
+      "employeeName": "Sneha Patel",
+      "department": "Marketing",
+      "date": "2026-09-11",
+      "checkIn": null,
+      "checkOut": null,
+      "status": "Absent"
+    },
+    {
+      "id": "ATT0085",
+      "employeeId": "EMP1005",
+      "employeeName": "Vikram Singh",
+      "department": "Operations",
+      "date": "2026-09-11",
+      "checkIn": "08:30",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0086",
+      "employeeId": "EMP1006",
+      "employeeName": "Divya Krishnan",
+      "department": "Engineering",
+      "date": "2026-09-11",
+      "checkIn": "09:30",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0087",
+      "employeeId": "EMP1007",
+      "employeeName": "Rohan Mehta",
+      "department": "Sales",
+      "date": "2026-09-11",
+      "checkIn": "09:30",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0088",
+      "employeeId": "EMP1008",
+      "employeeName": "Ananya Gupta",
+      "department": "Product",
+      "date": "2026-09-11",
+      "checkIn": "08:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0089",
+      "employeeId": "EMP1009",
+      "employeeName": "Suresh Babu",
+      "department": "Engineering",
+      "date": "2026-09-11",
+      "checkIn": "09:00",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0090",
+      "employeeId": "EMP1010",
+      "employeeName": "Neha Joshi",
+      "department": "Design",
+      "date": "2026-09-11",
+      "checkIn": "10:15",
+      "checkOut": "17:00",
+      "status": "Late"
+    },
+    {
+      "id": "ATT0091",
+      "employeeId": "EMP1001",
+      "employeeName": "Arjun Sharma",
+      "department": "Engineering",
+      "date": "2026-09-14",
+      "checkIn": "09:00",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0092",
+      "employeeId": "EMP1002",
+      "employeeName": "Priya Nair",
+      "department": "Human Resources",
+      "date": "2026-09-14",
+      "checkIn": "09:30",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0093",
+      "employeeId": "EMP1003",
+      "employeeName": "Rahul Verma",
+      "department": "Finance",
+      "date": "2026-09-14",
+      "checkIn": "08:30",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0094",
+      "employeeId": "EMP1004",
+      "employeeName": "Sneha Patel",
+      "department": "Marketing",
+      "date": "2026-09-14",
+      "checkIn": "08:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0095",
+      "employeeId": "EMP1005",
+      "employeeName": "Vikram Singh",
+      "department": "Operations",
+      "date": "2026-09-14",
+      "checkIn": "10:15",
+      "checkOut": "17:00",
+      "status": "Late"
+    },
+    {
+      "id": "ATT0096",
+      "employeeId": "EMP1006",
+      "employeeName": "Divya Krishnan",
+      "department": "Engineering",
+      "date": "2026-09-14",
+      "checkIn": "09:00",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0097",
+      "employeeId": "EMP1007",
+      "employeeName": "Rohan Mehta",
+      "department": "Sales",
+      "date": "2026-09-14",
+      "checkIn": null,
+      "checkOut": null,
+      "status": "Absent"
+    },
+    {
+      "id": "ATT0098",
+      "employeeId": "EMP1008",
+      "employeeName": "Ananya Gupta",
+      "department": "Product",
+      "date": "2026-09-14",
+      "checkIn": "09:30",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0099",
+      "employeeId": "EMP1009",
+      "employeeName": "Suresh Babu",
+      "department": "Engineering",
+      "date": "2026-09-14",
+      "checkIn": "08:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0100",
+      "employeeId": "EMP1010",
+      "employeeName": "Neha Joshi",
+      "department": "Design",
+      "date": "2026-09-14",
+      "checkIn": "08:00",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0101",
+      "employeeId": "EMP1001",
+      "employeeName": "Arjun Sharma",
+      "department": "Engineering",
+      "date": "2026-09-15",
+      "checkIn": "08:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0102",
+      "employeeId": "EMP1002",
+      "employeeName": "Priya Nair",
+      "department": "Human Resources",
+      "date": "2026-09-15",
+      "checkIn": "08:00",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0103",
+      "employeeId": "EMP1003",
+      "employeeName": "Rahul Verma",
+      "department": "Finance",
+      "date": "2026-09-15",
+      "checkIn": null,
+      "checkOut": null,
+      "status": "Absent"
+    },
+    {
+      "id": "ATT0104",
+      "employeeId": "EMP1004",
+      "employeeName": "Sneha Patel",
+      "department": "Marketing",
+      "date": "2026-09-15",
+      "checkIn": "10:15",
+      "checkOut": "17:00",
+      "status": "Late"
+    },
+    {
+      "id": "ATT0105",
+      "employeeId": "EMP1005",
+      "employeeName": "Vikram Singh",
+      "department": "Operations",
+      "date": "2026-09-15",
+      "checkIn": "09:30",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0106",
+      "employeeId": "EMP1006",
+      "employeeName": "Divya Krishnan",
+      "department": "Engineering",
+      "date": "2026-09-15",
+      "checkIn": "08:30",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0107",
+      "employeeId": "EMP1007",
+      "employeeName": "Rohan Mehta",
+      "department": "Sales",
+      "date": "2026-09-15",
+      "checkIn": "08:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0108",
+      "employeeId": "EMP1008",
+      "employeeName": "Ananya Gupta",
+      "department": "Product",
+      "date": "2026-09-15",
+      "checkIn": "08:30",
+      "checkOut": "17:00",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0109",
+      "employeeId": "EMP1009",
+      "employeeName": "Suresh Babu",
+      "department": "Engineering",
+      "date": "2026-09-15",
+      "checkIn": "09:00",
+      "checkOut": "17:30",
+      "status": "Present"
+    },
+    {
+      "id": "ATT0110",
+      "employeeId": "EMP1010",
+      "employeeName": "Neha Joshi",
+      "department": "Design",
+      "date": "2026-09-15",
+      "checkIn": "08:30",
+      "checkOut": "17:30",
+      "status": "Present"
+    }
+  ],
+  "leaves": [
+    {
+      "id": "LV001",
+      "employeeId": "EMP1001",
+      "employeeName": "Arjun Sharma",
+      "department": "Engineering",
+      "leaveType": "Annual Leave",
+      "fromDate": "2026-09-18",
+      "toDate": "2026-09-20",
+      "days": 3,
+      "reason": "Family vacation planned during children's school break.",
+      "status": "Pending",
+      "appliedOn": "2026-09-13"
+    },
+    {
+      "id": "LV002",
+      "employeeId": "EMP1004",
+      "employeeName": "Sneha Patel",
+      "department": "Marketing",
+      "leaveType": "Sick Leave",
+      "fromDate": "2026-09-12",
+      "toDate": "2026-09-14",
+      "days": 3,
+      "reason": "Fever and viral infection, doctor recommended rest.",
+      "status": "Approved",
+      "appliedOn": "2026-09-11"
+    },
+    {
+      "id": "LV003",
+      "employeeId": "EMP1007",
+      "employeeName": "Rohan Mehta",
+      "department": "Sales",
+      "leaveType": "Casual Leave",
+      "fromDate": "2026-09-16",
+      "toDate": "2026-09-16",
+      "days": 1,
+      "reason": "Personal work — bank appointment.",
+      "status": "Pending",
+      "appliedOn": "2026-09-15"
+    },
+    {
+      "id": "LV004",
+      "employeeId": "EMP1002",
+      "employeeName": "Priya Nair",
+      "department": "Human Resources",
+      "leaveType": "Annual Leave",
+      "fromDate": "2026-09-05",
+      "toDate": "2026-09-09",
+      "days": 5,
+      "reason": "Annual family trip to Goa.",
+      "status": "Approved",
+      "appliedOn": "2026-08-31"
+    },
+    {
+      "id": "LV005",
+      "employeeId": "EMP1009",
+      "employeeName": "Suresh Babu",
+      "department": "Engineering",
+      "leaveType": "Casual Leave",
+      "fromDate": "2026-09-10",
+      "toDate": "2026-09-10",
+      "days": 1,
+      "reason": "Vehicle repair and home maintenance.",
+      "status": "Rejected",
+      "appliedOn": "2026-09-08"
+    },
+    {
+      "id": "LV006",
+      "employeeId": "EMP1003",
+      "employeeName": "Rahul Verma",
+      "department": "Finance",
+      "leaveType": "Annual Leave",
+      "fromDate": "2026-09-22",
+      "toDate": "2026-09-29",
+      "days": 8,
+      "reason": "International trip to Europe with family.",
+      "status": "Pending",
+      "appliedOn": "2026-09-15"
+    },
+    {
+      "id": "LV007",
+      "employeeId": "EMP1010",
+      "employeeName": "Neha Joshi",
+      "department": "Design",
+      "leaveType": "Sick Leave",
+      "fromDate": "2026-09-14",
+      "toDate": "2026-09-15",
+      "days": 2,
+      "reason": "Severe migraine and medical tests.",
+      "status": "Approved",
+      "appliedOn": "2026-09-13"
+    },
+    {
+      "id": "LV008",
+      "employeeId": "EMP1005",
+      "employeeName": "Vikram Singh",
+      "department": "Operations",
+      "leaveType": "Maternity Leave",
+      "fromDate": "2026-09-25",
+      "toDate": "2026-12-18",
+      "days": 84,
+      "reason": "Spouse maternity leave — shared parental care.",
+      "status": "Pending",
+      "appliedOn": "2026-09-15"
+    },
+    {
+      "id": "LV009",
+      "employeeId": "EMP1015",
+      "employeeName": "Karthik Iyer",
+      "department": "Engineering",
+      "leaveType": "Casual Leave",
+      "fromDate": "2026-09-17",
+      "toDate": "2026-09-17",
+      "days": 1,
+      "reason": "Attending cousin's wedding.",
+      "status": "Pending",
+      "appliedOn": "2026-09-15"
+    },
+    {
+      "id": "LV010",
+      "employeeId": "EMP1008",
+      "employeeName": "Ananya Gupta",
+      "department": "Product",
+      "leaveType": "Annual Leave",
+      "fromDate": "2026-08-26",
+      "toDate": "2026-08-28",
+      "days": 3,
+      "reason": "Personal health checkup and rest.",
+      "status": "Approved",
+      "appliedOn": "2026-08-24"
+    }
+  ],
+  "dashboardStats": {
+    "totalEmployees": 20,
+    "presentToday": 16,
+    "onLeave": 3,
+    "newJoiners": 3
+  },
+  "departmentDistribution": [
+    {
+      "name": "Engineering",
+      "value": 6,
+      "color": "#3b82f6"
+    },
+    {
+      "name": "HR",
+      "value": 2,
+      "color": "#8b5cf6"
+    },
+    {
+      "name": "Finance",
+      "value": 2,
+      "color": "#10b981"
+    },
+    {
+      "name": "Marketing",
+      "value": 2,
+      "color": "#f59e0b"
+    },
+    {
+      "name": "Operations",
+      "value": 2,
+      "color": "#ef4444"
+    },
+    {
+      "name": "Sales",
+      "value": 2,
+      "color": "#06b6d4"
+    },
+    {
+      "name": "Product",
+      "value": 1,
+      "color": "#6366f1"
+    },
+    {
+      "name": "Design",
+      "value": 2,
+      "color": "#ec4899"
+    },
+    {
+      "name": "Others",
+      "value": 1,
+      "color": "#64748b"
+    }
+  ],
+  "attendanceTrend": [
+    {
+      "day": "Mon",
+      "present": 18,
+      "absent": 1,
+      "late": 1
+    },
+    {
+      "day": "Tue",
+      "present": 17,
+      "absent": 2,
+      "late": 1
+    },
+    {
+      "day": "Wed",
+      "present": 19,
+      "absent": 1,
+      "late": 0
+    },
+    {
+      "day": "Thu",
+      "present": 16,
+      "absent": 2,
+      "late": 2
+    },
+    {
+      "day": "Fri",
+      "present": 15,
+      "absent": 3,
+      "late": 2
+    }
+  ],
+  "projects": [
+    {
+      "id": "PRJ001",
+      "name": "HRMS Platform Migration",
+      "description": "Migrate the legacy HRMS to a modern cloud-native platform with improved performance and a unified employee self-service portal.",
+      "client": "Internal",
+      "department": "Engineering",
+      "lead": "EMP1009",
+      "members": [
+        "EMP1001",
+        "EMP1006",
+        "EMP1015",
+        "EMP1020"
+      ],
+      "status": "In Progress",
+      "priority": "High",
+      "progress": 65,
+      "startDate": "2026-01-10",
+      "endDate": "2026-11-30",
+      "budget": 450000
+    },
+    {
+      "id": "PRJ002",
+      "name": "Mobile App Redesign",
+      "description": "End-to-end redesign of the employee mobile app with a fresh design system, improved navigation and offline-first attendance.",
+      "client": "Internal",
+      "department": "Design",
+      "lead": "EMP1010",
+      "members": [
+        "EMP1010",
+        "EMP1018"
+      ],
+      "status": "In Progress",
+      "priority": "Medium",
+      "progress": 42,
+      "startDate": "2026-03-01",
+      "endDate": "2026-09-30",
+      "budget": 180000
+    },
+    {
+      "id": "PRJ003",
+      "name": "Payroll Automation Suite",
+      "description": "Automate payroll processing, tax computations and payslip generation with a configurable rule engine.",
+      "client": "Finance Team",
+      "department": "Finance",
+      "lead": "EMP1003",
+      "members": [
+        "EMP1003",
+        "EMP1011"
+      ],
+      "status": "In Progress",
+      "priority": "High",
+      "progress": 55,
+      "startDate": "2026-02-15",
+      "endDate": "2026-10-05",
+      "budget": 260000
+    },
+    {
+      "id": "PRJ004",
+      "name": "Q3 Brand Campaign",
+      "description": "Integrated multi-channel brand campaign covering social, email and partner outreach for Q3 product launches.",
+      "client": "Acme Retail",
+      "department": "Marketing",
+      "lead": "EMP1014",
+      "members": [
+        "EMP1004",
+        "EMP1014"
+      ],
+      "status": "In Review",
+      "priority": "Medium",
+      "progress": 88,
+      "startDate": "2026-05-20",
+      "endDate": "2026-08-30",
+      "budget": 120000
+    },
+    {
+      "id": "PRJ005",
+      "name": "CRM Rollout",
+      "description": "Company-wide rollout of the new CRM, including data migration, team onboarding and sales pipeline automation.",
+      "client": "External",
+      "department": "Sales",
+      "lead": "EMP1007",
+      "members": [
+        "EMP1007",
+        "EMP1019"
+      ],
+      "status": "In Progress",
+      "priority": "High",
+      "progress": 34,
+      "startDate": "2026-04-01",
+      "endDate": "2026-12-15",
+      "budget": 320000
+    },
+    {
+      "id": "PRJ006",
+      "name": "Support Portal Revamp",
+      "description": "Redesign of the customer support portal with smarter ticketing, knowledge base and live chat integration.",
+      "client": "Customer Support",
+      "department": "Customer Support",
+      "lead": "EMP1012",
+      "members": [
+        "EMP1012"
+      ],
+      "status": "On Hold",
+      "priority": "Low",
+      "progress": 20,
+      "startDate": "2026-03-10",
+      "endDate": "2026-09-20",
+      "budget": 95000
+    },
+    {
+      "id": "PRJ007",
+      "name": "Compliance Audit 2026",
+      "description": "Annual statutory and data-privacy compliance audit across all departments with remediation tracking.",
+      "client": "Legal & Governance",
+      "department": "Legal",
+      "lead": "EMP1013",
+      "members": [
+        "EMP1013"
+      ],
+      "status": "Not Started",
+      "priority": "High",
+      "progress": 0,
+      "startDate": "2026-09-01",
+      "endDate": "2026-12-31",
+      "budget": 70000
+    },
+    {
+      "id": "PRJ008",
+      "name": "Ops Analytics Dashboard",
+      "description": "Real-time operations analytics dashboard covering SLAs, resource utilisation and process bottlenecks.",
+      "client": "Operations",
+      "department": "Operations",
+      "lead": "EMP1005",
+      "members": [
+        "EMP1005",
+        "EMP1017"
+      ],
+      "status": "In Progress",
+      "priority": "Medium",
+      "progress": 62,
+      "startDate": "2026-02-01",
+      "endDate": "2026-09-15",
+      "budget": 210000
+    },
+    {
+      "id": "PRJ009",
+      "name": "Product Roadmap FY27",
+      "description": "Consolidated FY27 product roadmap with prioritised themes, capacity planning and quarterly milestones.",
+      "client": "Product & Strategy",
+      "department": "Product",
+      "lead": "EMP1008",
+      "members": [
+        "EMP1008"
+      ],
+      "status": "In Review",
+      "priority": "Medium",
+      "progress": 92,
+      "startDate": "2026-06-01",
+      "endDate": "2026-08-20",
+      "budget": 140000
+    },
+    {
+      "id": "PRJ010",
+      "name": "Internal HR Portal",
+      "description": "Employee self-service portal for leaves, payslips and policy documents with manager approvals.",
+      "client": "Human Resources",
+      "department": "Human Resources",
+      "lead": "EMP1002",
+      "members": [
+        "EMP1002",
+        "EMP1016"
+      ],
+      "status": "Completed",
+      "priority": "Medium",
+      "progress": 100,
+      "startDate": "2025-09-01",
+      "endDate": "2026-03-31",
+      "budget": 300000
+    }
+  ]
+}

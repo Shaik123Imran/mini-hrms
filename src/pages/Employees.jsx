@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { Plus, Eye, Pencil, Trash2, Filter, X } from 'lucide-react';
 import { employeeService } from '../services/employeeService';
 import { useToast } from '../context/ToastContext';
+import { useAuth } from '../context/AuthContext';
+import { can } from '../utils/permissions';
 import { DEPARTMENTS, EMPLOYMENT_STATUSES, ITEMS_PER_PAGE } from '../utils/constants';
 import { formatDate } from '../utils/formatters';
 import SearchBar    from '../components/common/SearchBar';
@@ -19,6 +21,11 @@ import { Users }    from 'lucide-react';
 export default function Employees() {
   const navigate = useNavigate();
   const { addToast } = useToast();
+  const { user } = useAuth();
+
+  const canCreate = can(user, 'employees.create');
+  const canEdit   = can(user, 'employees.edit');
+  const canDelete = can(user, 'employees.delete');
 
   const [employees, setEmployees] = useState([]);
   const [search, setSearch]       = useState('');
@@ -85,9 +92,11 @@ export default function Employees() {
           >
             <Filter size={15} /> Filters {hasFilters && `(${[search,deptFilter,statusFilter].filter(Boolean).length})`}
           </Button>
-          <Button size="sm" onClick={() => navigate('/employees/add')}>
-            <Plus size={15} /> Add Employee
-          </Button>
+          {canCreate && (
+            <Button size="sm" onClick={() => navigate('/employees/add')}>
+              <Plus size={15} /> Add Employee
+            </Button>
+          )}
         </div>
       </div>
 
@@ -135,11 +144,11 @@ export default function Employees() {
             action={
               hasFilters ? (
                 <Button variant="secondary" size="sm" onClick={clearFilters}>Clear Filters</Button>
-              ) : (
+              ) : canCreate ? (
                 <Button size="sm" onClick={() => navigate('/employees/add')}>
                   <Plus size={15} /> Add Employee
                 </Button>
-              )
+              ) : undefined
             }
           />
         ) : (
@@ -190,22 +199,26 @@ export default function Employees() {
                           >
                             <Eye size={15} />
                           </button>
-                          <button
-                            onClick={() => navigate(`/employees/${emp.id}/edit`)}
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 transition-colors"
-                            title="Edit employee"
-                            aria-label={`Edit ${emp.firstName}`}
-                          >
-                            <Pencil size={15} />
-                          </button>
-                          <button
-                            onClick={() => setDeleteTarget(emp)}
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
-                            title="Delete employee"
-                            aria-label={`Delete ${emp.firstName}`}
-                          >
-                            <Trash2 size={15} />
-                          </button>
+                          {canEdit && (
+                            <button
+                              onClick={() => navigate(`/employees/${emp.id}/edit`)}
+                              className="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 transition-colors"
+                              title="Edit employee"
+                              aria-label={`Edit ${emp.firstName}`}
+                            >
+                              <Pencil size={15} />
+                            </button>
+                          )}
+                          {canDelete && (
+                            <button
+                              onClick={() => setDeleteTarget(emp)}
+                              className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                              title="Delete employee"
+                              aria-label={`Delete ${emp.firstName}`}
+                            >
+                              <Trash2 size={15} />
+                            </button>
+                          )}
                         </div>
                       </td>
                     </tr>

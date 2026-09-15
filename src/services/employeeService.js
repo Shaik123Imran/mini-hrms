@@ -3,7 +3,8 @@
 // Replace function bodies with Axios calls when backend is ready.
 
 import { storage } from '../utils/localStorage';
-import { INITIAL_EMPLOYEES } from '../data/employees';
+import { INITIAL_EMPLOYEES } from '../data';
+import { assertAuthenticated } from './apiClient';
 
 const KEY = 'employees';
 
@@ -25,6 +26,7 @@ export const employeeService = {
   },
 
   addEmployee(data) {
+    assertAuthenticated();
     const employees = getAll();
     const newEmp = { ...data };
     employees.push(newEmp);
@@ -33,6 +35,7 @@ export const employeeService = {
   },
 
   updateEmployee(id, data) {
+    assertAuthenticated();
     const employees = getAll();
     const idx = employees.findIndex((e) => e.id === id);
     if (idx === -1) return null;
@@ -42,6 +45,7 @@ export const employeeService = {
   },
 
   deleteEmployee(id) {
+    assertAuthenticated();
     const employees = getAll().filter((e) => e.id !== id);
     saveAll(employees);
     return true;

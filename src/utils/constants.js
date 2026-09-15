@@ -38,12 +38,8 @@ export const LEAVE_STATUSES = ['Pending', 'Approved', 'Rejected'];
 
 export const ATTENDANCE_STATUSES = ['Present', 'Absent', 'Late', 'Half Day'];
 
-export const MOCK_CREDENTIALS = {
-  email: 'admin@company.com',
-  password: 'admin123',
-  name: 'Sarah Mitchell',
-  role: 'HR Administrator',
-  avatar: null,
-};
+export const PROJECT_STATUSES = ['Not Started', 'In Progress', 'In Review', 'Completed', 'On Hold'];
+
+export const PROJECT_PRIORITIES = ['High', 'Medium', 'Low'];
 
 export const ITEMS_PER_PAGE = 10;

@@ -4,6 +4,8 @@ import { CheckCircle, XCircle, Eye, X, FileText, Plus } from 'lucide-react';
 import { leaveService } from '../services/leaveService';
 import { employeeService } from '../services/employeeService';
 import { useToast }     from '../context/ToastContext';
+import { useAuth }      from '../context/AuthContext';
+import { can }          from '../utils/permissions';
 import { LEAVE_TYPES, LEAVE_STATUSES } from '../utils/constants';
 import { formatDate, getDaysBetween } from '../utils/formatters';
 import SearchBar        from '../components/common/SearchBar';
@@ -21,6 +23,11 @@ const ITEMS = 10;
 
 export default function LeaveManagement() {
   const { addToast } = useToast();
+  const { user } = useAuth();
+
+  const canApprove = can(user, 'leaves.approve');
+  const canViewAll = can(user, 'leaves.view');
+  const isEmployee = user?.role === 'Employee';
 
   const [leaves, setLeaves]     = useState(() => leaveService.getLeaves());
   const [search, setSearch]     = useState('');
@@ -35,13 +42,24 @@ export default function LeaveManagement() {
   const employees         = employeeService.getEmployees();
   const employeeOptions   = employees.map((e) => ({ value: e.id, label: `${e.firstName} ${e.lastName}` }));
   const [applyOpen, setApplyOpen]   = useState(false);
-  const [applyForm, setApplyForm]   = useState({ employeeId: '', leaveType: '', fromDate: '', toDate: '', reason: '' });
+  const [applyForm, setApplyForm]   = useState(() => ({
+    employeeId: isEmployee ? user?.employeeId || '' : '',
+    leaveType: '',
+    fromDate: '',
+    toDate: '',
+    reason: '',
+  }));
   const [applyErrors, setApplyErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
 
+  const visibleLeaves = useMemo(
+    () => (canViewAll ? leaves : leaves.filter((l) => l.employeeId === user?.employeeId)),
+    [leaves, canViewAll, user]
+  );
+
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
-    return leaves.filter((l) => {
+    return visibleLeaves.filter((l) => {
       const matchSearch = !q ||
         l.employeeName.toLowerCase().includes(q) ||
         l.employeeId.toLowerCase().includes(q);
@@ -49,16 +67,16 @@ export default function LeaveManagement() {
       const matchStatus = !statusFilter || l.status === statusFilter;
       return matchSearch && matchType && matchStatus;
     });
-  }, [leaves, search, typeFilter, statusFilter]);
+  }, [visibleLeaves, search, typeFilter, statusFilter]);
 
   useEffect(() => { setPage(1); }, [search, typeFilter, statusFilter]);
 
   const totalPages = Math.ceil(filtered.length / ITEMS);
   const paginated  = filtered.slice((page - 1) * ITEMS, page * ITEMS);
 
-  const pending  = leaves.filter((l) => l.status === 'Pending').length;
-  const approved = leaves.filter((l) => l.status === 'Approved').length;
-  const rejected = leaves.filter((l) => l.status === 'Rejected').length;
+  const pending  = visibleLeaves.filter((l) => l.status === 'Pending').length;
+  const approved = visibleLeaves.filter((l) => l.status === 'Approved').length;
+  const rejected = visibleLeaves.filter((l) => l.status === 'Rejected').length;
 
   const clearFilters = () => { setSearch(''); setType(''); setStatus(''); };
   const hasFilters = search || typeFilter || statusFilter;
@@ -222,7 +240,7 @@ export default function LeaveManagement() {
                           >
                             <Eye size={15} />
                           </button>
-                          {leave.status === 'Pending' && (
+                          {leave.status === 'Pending' && canApprove && (
                             <>
                               <button
                                 onClick={() => setActionTarget({ leave, action: 'Approved' })}
@@ -293,7 +311,7 @@ export default function LeaveManagement() {
               <p className="text-sm text-slate-700">{viewLeave.reason}</p>
             </div>
 
-            {viewLeave.status === 'Pending' && (
+            {viewLeave.status === 'Pending' && canApprove && (
               <div className="flex gap-3 pt-2">
                 <Button
                   variant="success"
@@ -333,6 +351,8 @@ export default function LeaveManagement() {
             placeholder="Select employee"
             error={applyErrors.employeeId}
             required
+            disabled={isEmployee}
+            hint={isEmployee ? 'Leave is applied for your own account.' : undefined}
           />
           <Select
             label="Leave Type"

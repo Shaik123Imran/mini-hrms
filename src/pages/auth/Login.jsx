@@ -1,34 +1,72 @@
-// pages/Login.jsx
-import { useState, useEffect } from 'react';
+// pages/auth/Login.jsx
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Eye, EyeOff, Building2, Loader2, MailCheck } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
-import { useToast } from '../context/ToastContext';
-import { MOCK_CREDENTIALS } from '../utils/constants';
-import Input from '../components/common/Input';
-import Modal from '../components/common/Modal';
-import Button from '../components/common/Button';
+import {
+  Eye, EyeOff, Building2, Loader2, MailCheck,
+  UserCog, UserCheck, Briefcase, User, KeyRound,
+} from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
+import { USERS } from '../../data';
+import Input from '../../components/common/Input';
+import Modal from '../../components/common/Modal';
+import Button from '../../components/common/Button';
+
+const ROLE_OPTIONS = [
+  { role: 'Admin',      label: 'Admin',      icon: UserCog,     description: 'Full system access' },
+  { role: 'HR Manager', label: 'HR Manager', icon: UserCheck,   description: 'Manage people & records' },
+  { role: 'Manager',    label: 'Manager',    icon: Briefcase,   description: 'Approve leaves & view teams' },
+  { role: 'Employee',   label: 'Employee',   icon: User,        description: 'Own attendance & leaves' },
+];
 
 export default function Login() {
   const { login, isAuthenticated } = useAuth();
   const { addToast } = useToast();
   const navigate = useNavigate();
 
-  const [form, setForm]           = useState({ email: '', password: '', remember: false });
-  const [errors, setErrors]       = useState({});
-  const [showPass, setShowPass]   = useState(false);
-  const [loading, setLoading]     = useState(false);
+  const [selectedRole, setSelectedRole] = useState('Admin');
+  const [form, setForm]                 = useState(() => {
+    const admin = USERS.find((u) => u.role === 'Admin');
+    return {
+      email: admin?.email || '',
+      password: admin?.password || '',
+      remember: false,
+    };
+  });
+  const [errors, setErrors]             = useState({});
+  const [showPass, setShowPass]         = useState(false);
+  const [loading, setLoading]           = useState(false);
 
   // Forgot password state
-  const [forgotOpen, setForgotOpen]   = useState(false);
-  const [forgotEmail, setForgotEmail] = useState('');
+  const [forgotOpen, setForgotOpen]     = useState(false);
+  const [forgotEmail, setForgotEmail]   = useState('');
   const [forgotErrors, setForgotErrors] = useState({});
-  const [forgotSent, setForgotSent]   = useState(false);
+  const [forgotSent, setForgotSent]     = useState(false);
+
+  // First account per role is used as the quick-demo login.
+  const demoAccounts = useMemo(
+    () =>
+      ROLE_OPTIONS.reduce((acc, { role }) => {
+        const account = USERS.find((u) => u.role === role);
+        if (account) acc[role] = account;
+        return acc;
+      }, {}),
+    []
+  );
 
   // Redirect if already logged in
   useEffect(() => {
     if (isAuthenticated) navigate('/dashboard', { replace: true });
   }, [isAuthenticated, navigate]);
+
+  const selectRole = (role) => {
+    setSelectedRole(role);
+    const account = demoAccounts[role];
+    if (account) {
+      setForm((f) => ({ ...f, email: account.email, password: account.password }));
+    }
+    setErrors({});
+  };
 
   const validate = () => {
     const errs = {};
@@ -51,7 +89,7 @@ export default function Login() {
     setLoading(false);
 
     if (result.success) {
-      addToast({ message: 'Welcome back! Logged in successfully.', type: 'success' });
+      addToast({ message: `Welcome back, ${result.user.name.split(' ')[0]}!`, type: 'success' });
       navigate('/dashboard', { replace: true });
     } else {
       setErrors({ auth: result.error });
@@ -61,14 +99,14 @@ export default function Login() {
   const handleForgotSubmit = async (e) => {
     e.preventDefault();
     const errs = {};
-    if (!forgotEmail.trim()) errs.email = 'Email is required.';
-    else if (forgotEmail.trim().toLowerCase() !== MOCK_CREDENTIALS.email) {
+    if (!forgotEmail.trim()) {
+      errs.email = 'Email is required.';
+    } else if (!USERS.some((u) => u.email.toLowerCase() === forgotEmail.trim().toLowerCase())) {
       errs.email = 'No account found with this email.';
     }
     setForgotErrors(errs);
     if (Object.keys(errs).length) return;
 
-    // Simulate sending a reset email
     await new Promise((r) => setTimeout(r, 600));
     setForgotSent(true);
     addToast({ message: 'Password reset instructions sent. Check your inbox.', type: 'success' });
@@ -87,7 +125,7 @@ export default function Login() {
       <div className="absolute top-0 left-0 w-96 h-96 bg-primary-600/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary-400/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 pointer-events-none" />
 
-      <div className="relative w-full max-w-md">
+      <div className="relative w-full max-w-lg">
         {/* Card */}
         <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden">
           {/* Top brand bar */}
@@ -102,12 +140,11 @@ export default function Login() {
               </div>
             </div>
             <p className="text-primary-100 text-sm mt-3">
-              Sign in to access your HR dashboard
+              Sign in to access your role-based HR dashboard
             </p>
           </div>
 
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="px-8 py-7 space-y-5" noValidate>
+          <form onSubmit={handleSubmit} className="px-8 py-6 space-y-5" noValidate>
             {/* Auth error banner */}
             {errors.auth && (
               <div className="bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-sm text-red-700">
@@ -115,16 +152,56 @@ export default function Login() {
               </div>
             )}
 
-            {/* Demo credentials hint */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg px-4 py-3 text-xs text-blue-700">
-              <strong>Demo credentials:</strong> admin@company.com / admin123
+            {/* Role selector */}
+            <div>
+              <p className="input-label mb-2">Login as</p>
+              <div className="grid grid-cols-2 gap-2">
+                {ROLE_OPTIONS.map(({ role, label, icon: Icon, description }) => {
+                  const active = selectedRole === role;
+                  return (
+                    <button
+                      key={role}
+                      type="button"
+                      onClick={() => selectRole(role)}
+                      className={`flex items-center gap-2.5 rounded-xl border px-3 py-2.5 text-left transition-colors ${
+                        active
+                          ? 'border-primary-500 bg-primary-50 ring-1 ring-primary-500'
+                          : 'border-slate-200 bg-white hover:border-slate-300'
+                      }`}
+                      aria-pressed={active}
+                    >
+                      <span
+                        className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                          active ? 'bg-primary-600 text-white' : 'bg-slate-100 text-slate-500'
+                        }`}
+                      >
+                        <Icon size={16} />
+                      </span>
+                      <span className="min-w-0">
+                        <span className={`block text-sm font-medium ${active ? 'text-primary-700' : 'text-slate-700'}`}>
+                          {label}
+                        </span>
+                        <span className="block text-[11px] text-slate-400 truncate">{description}</span>
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
+
+            {/* Demo credential hint for selected role */}
+            {demoAccounts[selectedRole] && (
+              <div className="bg-blue-50 border border-blue-200 rounded-lg px-4 py-3 text-xs text-blue-700">
+                <strong>Demo credentials:</strong>{' '}
+                {demoAccounts[selectedRole].email} / {demoAccounts[selectedRole].password}
+              </div>
+            )}
 
             <Input
               id="email"
               label="Email Address"
               type="email"
-              placeholder="admin@company.com"
+              placeholder="employee@company.com"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
               error={errors.email}
@@ -186,13 +263,13 @@ export default function Login() {
               {loading ? (
                 <><Loader2 size={18} className="animate-spin" /> Signing in...</>
               ) : (
-                'Sign In'
+                <><KeyRound size={16} /> Sign In</>
               )}
             </button>
           </form>
 
           <div className="px-8 pb-6 text-center text-xs text-slate-400">
-            © 2024 Mini HRMS. Internal use only.
+            © 2026 Mini HRMS. Role-based access enabled. Internal use only.
           </div>
         </div>
       </div>
@@ -222,7 +299,7 @@ export default function Login() {
               <Input
                 label="Email Address"
                 type="email"
-                placeholder="admin@company.com"
+                placeholder="employee@company.com"
                 value={forgotEmail}
                 onChange={(e) => setForgotEmail(e.target.value)}
                 error={forgotErrors.email}

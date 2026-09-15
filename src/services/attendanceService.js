@@ -2,7 +2,8 @@
 // Mock attendance service backed by localStorage.
 
 import { storage } from '../utils/localStorage';
-import { INITIAL_ATTENDANCE } from '../data/attendance';
+import { INITIAL_ATTENDANCE } from '../data';
+import { assertAuthenticated } from './apiClient';
 
 const KEY = 'attendance';
 
@@ -60,6 +61,7 @@ export const attendanceService = {
    * Creates or updates today's record. Returns the record.
    */
   clockIn(employeeId, employeeName, department) {
+    assertAuthenticated();
     const all = getAll();
     const date = todayStr();
     const idx = all.findIndex((a) => a.employeeId === employeeId && a.date === date);
@@ -97,6 +99,7 @@ export const attendanceService = {
    * Returns the updated record, or null if no open record exists.
    */
   clockOut(employeeId) {
+    assertAuthenticated();
     const all = getAll();
     const date = todayStr();
     const idx = all.findIndex((a) => a.employeeId === employeeId && a.date === date);

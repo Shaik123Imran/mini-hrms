@@ -4,16 +4,17 @@ import { Menu, Bell, CalendarClock } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { leaveService } from '../../services/leaveService';
+import { can } from '../../utils/permissions';
 import { formatDate } from '../../utils/formatters';
 import Avatar from '../common/Avatar';
 
 const PAGE_TITLES = {
   '/dashboard':  'Dashboard',
+  '/projects':   'Projects',
   '/employees':  'Employees',
   '/employees/add': 'Add Employee',
   '/attendance': 'Attendance',
   '/leave':      'Leave Management',
-  '/reports':    'Reports',
 };
 
 export default function Navbar({ onMenuClick }) {
@@ -48,22 +49,31 @@ export default function Navbar({ onMenuClick }) {
     title = PAGE_TITLES[location.pathname] || 'Mini HRMS';
   }
 
-  // Notifications derived from pending leave requests
-  const pendingLeaves = leaveService.getLeaves().filter((l) => l.status === 'Pending');
+  // Notifications derived from pending leave requests. Employees only see their own.
+  const canSeeAllLeaves = can(user, 'leaves.view');
+  const allLeaves = leaveService.getLeaves();
+  const pendingLeaves = allLeaves.filter(
+    (l) =>
+      l.status === 'Pending' &&
+      (canSeeAllLeaves || l.employeeId === user?.employeeId)
+  );
+
   const notifications = [
     {
       id: 'welcome',
       type: 'info',
       title: 'Welcome back!',
-      message: 'You have access to the HR admin dashboard.',
+      message: `You are signed in as ${user?.role || 'User'}.`,
       time: 'Just now',
       route: '/dashboard',
     },
     ...pendingLeaves.map((l) => ({
       id: l.id,
       type: 'leave',
-      title: 'New leave request',
-      message: `${l.employeeName} (${l.leaveType}) from ${formatDate(l.fromDate)}`,
+      title: 'Leave request',
+      message: canSeeAllLeaves
+        ? `${l.employeeName} (${l.leaveType}) from ${formatDate(l.fromDate)}`
+        : `${l.leaveType} from ${formatDate(l.fromDate)} — ${l.status}`,
       time: formatDate(l.appliedOn),
       route: '/leave',
     })),

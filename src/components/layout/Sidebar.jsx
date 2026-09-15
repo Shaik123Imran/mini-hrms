@@ -1,30 +1,37 @@
 // components/layout/Sidebar.jsx
 import { NavLink, useNavigate } from 'react-router-dom';
 import {
-  LayoutDashboard, Users, CalendarCheck, FileText, BarChart3,
+  LayoutDashboard, FolderKanban, Users, CalendarCheck, FileText,
   LogOut, X, Building2,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import { useToast } from '../../context/ToastContext';
+import { can } from '../../utils/permissions';
 import Avatar from '../common/Avatar';
 
 const NAV_ITEMS = [
-  { to: '/dashboard',  label: 'Dashboard',       icon: LayoutDashboard },
-  { to: '/employees',  label: 'Employees',        icon: Users },
-  { to: '/attendance', label: 'Attendance',       icon: CalendarCheck },
-  { to: '/leave',      label: 'Leave Management', icon: FileText },
-  { to: '/reports',    label: 'Reports',          icon: BarChart3 },
+  { to: '/dashboard',  label: 'Dashboard',   icon: LayoutDashboard, perms: ['dashboard'] },
+  { to: '/projects',   label: 'Projects',    icon: FolderKanban,    perms: ['projects.view', 'projects.own'] },
+  { to: '/employees',  label: 'Employees',   icon: Users,           perms: ['employees.view'] },
+  { to: '/attendance', label: 'Attendance',  icon: CalendarCheck,   perms: ['attendance.view', 'attendance.self'] },
+  { to: '/leave',      label: 'Leave Management', icon: FileText,   perms: ['leaves.view', 'leaves.self'] },
 ];
 
 export default function Sidebar({ open, onClose }) {
-  const { user, logout } = useAuth();
-  const { addToast } = useToast();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
+  const items = NAV_ITEMS.filter((item) =>
+    item.perms.some((perm) => can(user, perm))
+  );
+
+  const labeled = items.map(({ label, ...rest }) => ({
+    ...rest,
+    label: user?.role === 'Employee' ? (label === 'Attendance' ? 'My Attendance' : label === 'Leave Management' ? 'My Leaves' : label) : label,
+  }));
+
   const handleLogout = () => {
-    logout();
-    addToast({ message: 'You have been logged out.', type: 'info' });
-    navigate('/login');
+    onClose();
+    navigate('/logout');
   };
 
   return (
@@ -72,7 +79,7 @@ export default function Sidebar({ open, onClose }) {
           <p className="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
             Menu
           </p>
-          {NAV_ITEMS.map(({ to, label, icon: Icon }) => (
+          {labeled.map(({ to, label, icon: Icon }) => (
             <NavLink
               key={to}
               to={to}

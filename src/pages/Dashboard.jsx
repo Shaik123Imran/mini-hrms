@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Users, UserCheck, CalendarX, UserPlus,
-  TrendingUp, ArrowRight, Clock, BarChart3,
+  TrendingUp, ArrowRight, Clock, FolderKanban,
 } from 'lucide-react';
 import {
   BarChart, Bar, PieChart, Pie, Cell,
@@ -11,9 +11,12 @@ import {
 } from 'recharts';
 import { employeeService } from '../services/employeeService';
 import { leaveService }    from '../services/leaveService';
+import { projectService }  from '../services/projectService';
+import { useAuth }         from '../context/AuthContext';
+import { can }             from '../utils/permissions';
 import {
   DASHBOARD_STATS, DEPARTMENT_DISTRIBUTION, ATTENDANCE_TREND,
-} from '../data/dashboard';
+} from '../data';
 import { formatDate } from '../utils/formatters';
 import Avatar from '../components/common/Avatar';
 import Badge, { getStatusVariant } from '../components/common/Badge';
@@ -37,13 +40,20 @@ function KPICard({ title, value, icon: Icon, color, subtitle }) {
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [employees, setEmployees] = useState([]);
   const [leaves, setLeaves]       = useState([]);
+  const [projects, setProjects]   = useState([]);
+  const canCreateEmployee = can(user, 'employees.create');
 
   useEffect(() => {
     setEmployees(employeeService.getEmployees());
     setLeaves(leaveService.getLeaves());
   }, []);
+
+  useEffect(() => {
+    setProjects(projectService.getProjectsForUser(user));
+  }, [user]);
 
   const recentEmployees = [...employees]
     .sort((a, b) => new Date(b.joiningDate) - new Date(a.joiningDate))
@@ -52,6 +62,10 @@ export default function Dashboard() {
   const recentLeaves = [...leaves]
     .sort((a, b) => new Date(b.appliedOn) - new Date(a.appliedOn))
     .slice(0, 5);
+
+  const recentProjects = [...projects]
+    .sort((a, b) => b.progress - a.progress)
+    .slice(0, 4);
 
   const totalEmployees = employees.length;
   const activeEmployees = employees.filter((e) => e.employmentStatus === 'Active').length;
@@ -152,6 +166,62 @@ export default function Dashboard() {
         </div>
       </div>
 
+      {/* Projects at a glance */}
+      <Card padding={false}>
+        <div className="p-5 border-b border-slate-100 flex items-center justify-between">
+          <div>
+            <h3 className="text-sm font-semibold text-slate-900">Projects</h3>
+            <p className="text-xs text-slate-500">
+              {user?.role === 'Employee'
+                ? 'Projects assigned to you'
+                : user?.role === 'Manager'
+                  ? 'Your team & department projects'
+                  : 'Organisation-wide projects'}
+            </p>
+          </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => navigate('/projects')}
+            className="gap-1"
+          >
+            View all <ArrowRight size={14} />
+          </Button>
+        </div>
+        <div className="divide-y divide-slate-50">
+          {recentProjects.length === 0 ? (
+            <p className="px-5 py-8 text-center text-sm text-slate-400">No projects visible for your role yet.</p>
+          ) : (
+            recentProjects.map((p) => (
+              <div
+                key={p.id}
+                className="flex items-center gap-3 px-5 py-3 hover:bg-slate-50 cursor-pointer transition-colors"
+                onClick={() => navigate('/projects')}
+              >
+                <div className="w-9 h-9 rounded-lg bg-primary-50 text-primary-600 flex items-center justify-center flex-shrink-0">
+                  <FolderKanban size={17} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm font-medium text-slate-800 truncate">{p.name}</p>
+                    <span className="flex-shrink-0"><Badge variant={getStatusVariant(p.status)} dot>{p.status}</Badge></span>
+                  </div>
+                  <div className="flex items-center gap-3 mt-1.5">
+                    <div className="flex-1 h-1.5 rounded-full bg-slate-100 overflow-hidden max-w-52">
+                      <div
+                        className="h-full rounded-full bg-primary-500"
+                        style={{ width: `${Math.min(100, Math.max(0, p.progress))}%` }}
+                      />
+                    </div>
+                    <span className="text-xs text-slate-500 flex-shrink-0">{p.progress}% · {p.department}</span>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </Card>
+
       {/* Recent employees + recent leaves */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
         {/* Recent Employees */}
@@ -237,17 +307,19 @@ export default function Dashboard() {
       <Card>
         <CardHeader title="Quick Actions" />
         <div className="flex flex-wrap gap-3">
-          <Button onClick={() => navigate('/employees/add')}>
-            <UserPlus size={16} /> Add Employee
+          <Button onClick={() => navigate('/projects')}>
+            <FolderKanban size={16} /> View Projects
           </Button>
+          {canCreateEmployee && (
+            <Button variant="secondary" onClick={() => navigate('/employees/add')}>
+              <UserPlus size={16} /> Add Employee
+            </Button>
+          )}
           <Button variant="secondary" onClick={() => navigate('/attendance')}>
             <CalendarX size={16} /> View Attendance
           </Button>
           <Button variant="secondary" onClick={() => navigate('/leave')}>
             <TrendingUp size={16} /> Leave Requests
-          </Button>
-          <Button variant="secondary" onClick={() => navigate('/reports')}>
-            <BarChart3 size={16} /> View Reports
           </Button>
         </div>
       </Card>

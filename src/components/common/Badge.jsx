@@ -17,14 +17,22 @@ export function getStatusVariant(status) {
     Active:        'green',
     Approved:      'green',
     Present:       'green',
+    Completed:     'green',
     Inactive:      'gray',
     Rejected:      'red',
     Absent:        'red',
     Terminated:    'red',
+    High:          'red',
     Pending:       'yellow',
     Late:          'yellow',
+    'On Hold':     'yellow',
+    Medium:        'yellow',
     'On Probation': 'blue',
+    'In Progress': 'blue',
+    Low:           'blue',
     'Half Day':    'purple',
+    'In Review':   'purple',
+    'Not Started': 'gray',
   };
   return map[status] || 'gray';
 }
